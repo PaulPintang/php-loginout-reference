@@ -1,4 +1,5 @@
 <?php
+    session_start();
     include "conn.php";
 
     if(isset($_POST['username']) && isset($_POST['password'])) {
@@ -29,6 +30,7 @@
             // binutang ko ide kading insert to database para pag tama lang su username and pass saka lang sya maga insert sa database. 
             // pag sala su username and pass diman da mangyayare na INSERT INTO database.
             if(mysqli_num_rows($result)) {
+
                  if (isset($_POST['login'])) {
                     $username = $_POST['username'];
                     $password = $_POST['password'];
@@ -37,7 +39,15 @@
                     $query = "INSERT INTO dropusers (username, password, pc) VALUES ('$username', '$password', '$pc')";
                     mysqli_query($db, $query);
                     }  
+
+                    $row = mysqli_fetch_assoc($result);
+                    $_SESSION['username'] = $row['username'];
+                    // $_SESSION['name'] = $row['name'];
+                    $_SESSION['id'] = $row['id'];
+
+                    header('location: home.php');
                     echo "tama";
+
                 }
                     else{
                 echo "sala";
