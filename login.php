@@ -50,7 +50,8 @@
 
                 }
                     else{
-                echo "sala";
+                    header("Location: index.php?error=username and password not match");
+                    exit();
               }
             }
 
